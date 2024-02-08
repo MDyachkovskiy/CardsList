@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CardsList</string>
+    <string name="cards_list_title">Управление картами</string>
 </resources>
