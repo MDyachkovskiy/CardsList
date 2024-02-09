@@ -34,7 +34,16 @@ android {
 
 dependencies {
 
+    implementation(project(":core"))
+
+    //Kotlin
     implementation("androidx.core:core-ktx:1.12.0")
+
+    //Core
     implementation("androidx.appcompat:appcompat:1.6.1")
+
+
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
 
 }

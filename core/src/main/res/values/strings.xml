@@ -3,4 +3,8 @@
     <string name="cashback_label">Кэшбек</string>
     <string name="level_label">Уровень</string>
     <string name="btn_details">Подробнее</string>
+
+    //Error
+    <string name="failed_loading">Возникла ошибка при загрузке</string>
+
 </resources>
