@@ -9,13 +9,13 @@ data class CompanyWithDetails(
         parentColumn = "companyId",
         entityColumn = "companyId"
     )
-    val mobileAppDashboard: List<MobileAppDashboardEntity>,
+    val mobileAppDashboard: MobileAppDashboardEntity,
     @Relation(
         entity = CustomerMarkParametersEntity::class,
         parentColumn = "companyId",
         entityColumn = "companyId"
     )
-    val customerMarkParameters: List<CustomerMarkParametersWithLoyaltyLevel>
+    val customerMarkParameters: CustomerMarkParametersWithLoyaltyLevel
 )
 
 data class CustomerMarkParametersWithLoyaltyLevel(

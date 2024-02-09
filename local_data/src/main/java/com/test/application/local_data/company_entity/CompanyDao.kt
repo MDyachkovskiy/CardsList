@@ -7,6 +7,9 @@ import androidx.room.Transaction
 
 interface CompanyDao {
 
+    @Query("DELETE FROM companies")
+    suspend fun clearAll()
+
     @Transaction
     suspend fun insertCompanyWithDetails(
         companyEntity: CompanyEntity,

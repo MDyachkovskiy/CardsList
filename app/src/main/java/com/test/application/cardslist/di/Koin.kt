@@ -4,9 +4,11 @@ import androidx.room.Room
 import com.test.application.cards_list.view_model.CardsViewModel
 import com.test.application.cardslist.utils.BASE_URL
 import com.test.application.local_data.database.LocalDatabase
+import com.test.application.local_data.repository.LocalDataRepositoryImpl
 import com.test.application.remote_data.api.CardsApi
 import com.test.application.remote_data.repository.CardsRepositoryImpl
-import com.test.application.repository.CardsRepository
+import com.test.application.repository.LocalDataRepository
+import com.test.application.repository.RemoteDataRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -39,7 +41,8 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    single<CardsRepository> { CardsRepositoryImpl(cardsService = get()) }
+    single<RemoteDataRepository> { CardsRepositoryImpl(cardsService = get()) }
+    single<LocalDataRepository> {LocalDataRepositoryImpl(companyDao = get())}
 }
 
 val viewModelModule = module {

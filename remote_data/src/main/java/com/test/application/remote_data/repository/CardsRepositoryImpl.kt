@@ -1,25 +1,27 @@
 package com.test.application.remote_data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.map
-import com.test.application.domain.Company
+import com.test.application.domain.AllCards
 import com.test.application.remote_data.api.CardsApi
 import com.test.application.remote_data.maper.toDomain
-import com.test.application.repository.CardsRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import com.test.application.repository.RemoteDataRepository
 
 class CardsRepositoryImpl(
     private val cardsService: CardsApi
-) : CardsRepository {
-    override fun getAllCards(): Flow<PagingData<Company>> {
-        return Pager(
-            config = PagingConfig(enablePlaceholders = false, pageSize = CardsPagingSource.PAGE_SIZE),
-            pagingSourceFactory = { CardsPagingSource(cardsService) }
-        ).flow.map { pagingData ->
-            pagingData.map { it.toDomain() }
+) : RemoteDataRepository {
+
+    override suspend fun fetchCards(offset: Int, limit: Int): Result<AllCards> {
+        return try {
+            val response = cardsService.getAllCards(mapOf("offset" to offset, "limit" to limit))
+                .await()
+            Result.success(
+                AllCards(
+                    companies = response.companies.map { it.toDomain() },
+                    limit = response.limit,
+                    offset = response.offset
+                )
+            )
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 }

@@ -4,6 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.test.application.remote_data.api.CardsApi
 import com.test.application.remote_data.dto.CompanyDTO
+import com.test.application.utils.INITIAL_OFFSET
+import com.test.application.utils.PAGE_SIZE
 
 class CardsPagingSource(
     private val apiService: CardsApi
@@ -31,10 +33,5 @@ class CardsPagingSource(
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(PAGE_SIZE) ?: anchorPage?.nextKey?.minus(PAGE_SIZE)
         }
-    }
-
-    companion object {
-        const val PAGE_SIZE = 10
-        const val INITIAL_OFFSET = 0
     }
 }
