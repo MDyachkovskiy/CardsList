@@ -1,9 +1,13 @@
 package com.test.application.cardslist.di
 
+import androidx.room.Room
+import com.test.application.cards_list.view_model.CardsViewModel
 import com.test.application.cardslist.utils.BASE_URL
+import com.test.application.local_data.database.LocalDatabase
 import com.test.application.remote_data.api.CardsApi
 import com.test.application.remote_data.repository.CardsRepositoryImpl
 import com.test.application.repository.CardsRepository
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,6 +25,23 @@ val networkModule = module {
     }
 }
 
+val databaseModule = module {
+    single {
+        Room.databaseBuilder(
+            get(),
+            LocalDatabase::class.java, "app_database_name"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    single { get<LocalDatabase>().companyDao() }
+}
+
 val repositoryModule = module {
     single<CardsRepository> { CardsRepositoryImpl(cardsService = get()) }
+}
+
+val viewModelModule = module {
+    viewModel { CardsViewModel(cardsRepository = get()) }
 }
