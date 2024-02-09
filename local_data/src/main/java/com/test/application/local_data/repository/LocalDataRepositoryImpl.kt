@@ -1,5 +1,6 @@
 package com.test.application.local_data.repository
 
+import androidx.paging.PagingSource
 import com.test.application.domain.Company
 import com.test.application.local_data.company_entity.CompanyDao
 import com.test.application.local_data.maper.toEntity
@@ -29,5 +30,9 @@ class LocalDataRepositoryImpl(
                 mobileAppDashboardEntity = mobileAppDashboardEntity
             )
         }
+    }
+
+    override fun pagingSourceForCompanies(): PagingSource<Int, Company> {
+        return CompanyPagingSource(companyDao)
     }
 }

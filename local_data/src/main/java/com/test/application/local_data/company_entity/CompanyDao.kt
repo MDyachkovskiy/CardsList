@@ -34,7 +34,16 @@ interface CompanyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMobileAppDashboard(mobileAppDashboardEntity: MobileAppDashboardEntity)
 
-    @Transaction
-    @Query("SELECT * FROM companies WHERE companyId = :companyId")
-    suspend fun getCompanyWithDetails(companyId: String): CompanyWithDetails
+    @Query("SELECT * FROM companies ORDER BY companyId ASC LIMIT :loadSize OFFSET :offset")
+    suspend fun getCompanies(offset: Int, loadSize: Int): List<CompanyEntity>
+
+    @Query("SELECT * FROM mobileAppDashboards WHERE companyId = :companyId")
+    suspend fun getMobileAppDashboard(companyId: String): MobileAppDashboardEntity
+
+    @Query("SELECT * FROM customerMarkParameters WHERE companyId = :companyId")
+    suspend fun getCustomerMarkParameters(companyId: String): CustomerMarkParametersEntity
+
+    @Query("SELECT * FROM loyaltyLevels WHERE customerMarkParametersId = :customerMarkParametersId")
+    suspend fun getLoyaltyLevelByCustomerMarkParameters(customerMarkParametersId: Int): LoyaltyLevelEntity
+
 }

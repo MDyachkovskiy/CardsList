@@ -6,5 +6,4 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "companies")
 data class CompanyEntity(
     @PrimaryKey var companyId: String,
-
 )

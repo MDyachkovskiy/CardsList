@@ -45,7 +45,4 @@ dependencies {
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
 
-    //Pagination
-    implementation ("androidx.paging:paging-runtime:3.2.1")
-
 }
