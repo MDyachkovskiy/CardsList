@@ -1,4 +1,4 @@
-package com.test.application.cardslist.ui.theme
+package com.test.application.ui
 
 import androidx.compose.ui.graphics.Color
 

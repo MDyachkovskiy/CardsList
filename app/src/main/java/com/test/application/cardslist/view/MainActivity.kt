@@ -1,4 +1,4 @@
-package com.test.application.cardslist
+package com.test.application.cardslist.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.test.application.cardslist.ui.screen.MyApp
-import com.test.application.cardslist.ui.theme.CardsListTheme
+import com.test.application.ui.CardsListTheme
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {

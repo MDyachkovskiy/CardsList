@@ -1,4 +1,4 @@
-package com.test.application.cards_list.ui
+package com.test.application.cards_list.ui.screen
 
 import androidx.compose.runtime.Composable
 

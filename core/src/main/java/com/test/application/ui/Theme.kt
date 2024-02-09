@@ -1,4 +1,4 @@
-package com.test.application.cardslist.ui.theme
+package com.test.application.ui
 
 import android.app.Activity
 import android.os.Build
@@ -30,7 +30,6 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun CardsListTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

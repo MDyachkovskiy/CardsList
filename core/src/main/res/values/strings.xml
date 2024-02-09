@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cashback_label">Кэшбек</string>
+    <string name="level_label">Уровень</string>
+    <string name="btn_details">Подробнее</string>
+</resources>
