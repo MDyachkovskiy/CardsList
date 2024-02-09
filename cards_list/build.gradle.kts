@@ -49,6 +49,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
+    //Pagination
+    implementation ("androidx.paging:paging-runtime:3.2.1")
+
     //Composable
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")

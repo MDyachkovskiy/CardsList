@@ -1,23 +1,14 @@
 package com.test.application.cards_list.view_model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.test.application.domain.Company
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
+import com.test.application.repository.CardsRepository
 
-class CardsViewModel : ViewModel() {
-    private val _cards = MutableLiveData<List<Company>>()
-    val cards: LiveData<List<Company>> = _cards
+class CardsViewModel(
+    cardsRepository: CardsRepository
+) : ViewModel() {
 
-    init {
-        loadCards()
-    }
-
-    private fun loadCards() {
-        _cards.value = listOf(
-            CardData("Card 1", ...),
-        CardData("Card 2", ...),
-        CardData("Card 3", ...)
-        )
-    }
+    val cardsFlow = cardsRepository.getAllCards()
+        .cachedIn(viewModelScope)
 }
