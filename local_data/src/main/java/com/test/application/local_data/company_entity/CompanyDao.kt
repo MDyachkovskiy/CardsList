@@ -1,10 +1,12 @@
 package com.test.application.local_data.company_entity
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 
+@Dao
 interface CompanyDao {
 
     @Query("DELETE FROM companies")

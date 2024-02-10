@@ -7,7 +7,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface CardsApi {
-    @POST("getAllCompanies")
+    @POST("getAllCompaniesIdeal")
     @Headers("TOKEN: 123")
     fun getAllCards(
         @Body offset: Map<String, Int>

@@ -57,6 +57,9 @@ dependencies {
     //Design
     implementation("io.coil-kt:coil-compose:2.2.2")
 
+    //Koin
+    implementation("io.insert-koin:koin-androidx-compose:3.5.0")
+
     //Composable
     implementation("androidx.compose.ui:ui:1.6.1")
     implementation("androidx.activity:activity-compose:1.8.2")

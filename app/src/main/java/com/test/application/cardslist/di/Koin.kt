@@ -42,9 +42,9 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single<RemoteDataRepository> { CardsRepositoryImpl(cardsService = get()) }
-    single<LocalDataRepository> {LocalDataRepositoryImpl(companyDao = get())}
+    single<LocalDataRepository> { LocalDataRepositoryImpl(companyDao = get()) }
 }
 
 val viewModelModule = module {
-    viewModel { CardsViewModel(cardsRepository = get()) }
+    viewModel { CardsViewModel(localDataRepository = get(), remoteDataRepository = get()) }
 }
