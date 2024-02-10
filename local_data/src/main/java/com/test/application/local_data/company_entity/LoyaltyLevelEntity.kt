@@ -8,16 +8,16 @@ import androidx.room.PrimaryKey
     tableName = "loyaltyLevels",
     foreignKeys = [
         ForeignKey(
-            entity = CustomerMarkParametersEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["customerMarkParametersId"],
+            entity = CompanyEntity::class,
+            parentColumns = ["companyId"],
+            childColumns = ["companyId"],
             onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class LoyaltyLevelEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val customerMarkParametersId: Int,
+    val companyId: String,
     val cashToMark: Int = 0,
     val markToCash: Int = 0,
     val name: String = "",

@@ -15,20 +15,22 @@ class LocalDataRepositoryImpl(
 
     override suspend fun insertAll(companies: List<Company>) {
         companies.forEach { company ->
+
             val companyEntity = company.toEntity()
+            companyDao.insertCompany(companyEntity)
+
             val customerMarkParametersEntity = company.customerMarkParameters
                 .toEntity(companyId = company.companyId)
+            companyDao.insertCustomerMarkParameters(customerMarkParametersEntity)
+
+
             val loyaltyLevelEntity = company.customerMarkParameters.loyaltyLevel
-                .toEntity(companyId = customerMarkParametersEntity.id)
+                .toEntity(companyId = company.companyId)
+            companyDao.insertLoyaltyLevel(loyaltyLevelEntity)
+
             val mobileAppDashboardEntity = company.mobileAppDashboard
                 .toEntity(companyId = company.companyId)
-
-            companyDao.insertCompanyWithDetails(
-                companyEntity = companyEntity,
-                customerMarkParametersEntity = customerMarkParametersEntity,
-                loyaltyLevelEntity = loyaltyLevelEntity,
-                mobileAppDashboardEntity = mobileAppDashboardEntity
-            )
+            companyDao.insertMobileAppDashboard(mobileAppDashboardEntity)
         }
     }
 

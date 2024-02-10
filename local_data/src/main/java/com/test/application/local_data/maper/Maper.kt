@@ -7,22 +7,17 @@ import com.test.application.domain.MobileAppDashboard
 import com.test.application.local_data.company_entity.CompanyEntity
 import com.test.application.local_data.company_entity.CompanyWithDetails
 import com.test.application.local_data.company_entity.CustomerMarkParametersEntity
-import com.test.application.local_data.company_entity.CustomerMarkParametersWithLoyaltyLevel
 import com.test.application.local_data.company_entity.LoyaltyLevelEntity
 import com.test.application.local_data.company_entity.MobileAppDashboardEntity
 
 fun CompanyWithDetails.toDomain(): Company {
     return Company(
         companyId = company.companyId,
-        customerMarkParameters = customerMarkParameters.toDomain(),
+        customerMarkParameters = CustomerMarkParameters(
+            loyaltyLevel = loyaltyLevels.toDomain(),
+            mark = customerMarkParameters.mark
+        ),
         mobileAppDashboard = mobileAppDashboard.toDomain()
-    )
-}
-
-fun CustomerMarkParametersWithLoyaltyLevel.toDomain(): CustomerMarkParameters {
-    return CustomerMarkParameters(
-        loyaltyLevel = loyaltyLevel.toDomain(),
-        mark = customerMarkParameters.mark
     )
 }
 
@@ -62,9 +57,9 @@ fun CustomerMarkParameters.toEntity(companyId: String): CustomerMarkParametersEn
     )
 }
 
-fun LoyaltyLevel.toEntity(companyId: Int): LoyaltyLevelEntity {
+fun LoyaltyLevel.toEntity(companyId: String): LoyaltyLevelEntity {
     return LoyaltyLevelEntity(
-        customerMarkParametersId = companyId,
+        companyId = companyId,
         cashToMark = this.cashToMark,
         markToCash = this.markToCash,
         name = this.name,
