@@ -7,7 +7,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.test.application.cards_list.R
 import com.test.application.ui.Black
 import com.test.application.ui.Blue
@@ -38,7 +41,7 @@ import com.test.application.ui.Red
 fun CardItem(
     cardName: String,
     cardBackgroundColor: Color,
-    logo: ImageVector,
+    logo: String,
     points: Int,
     highlightTextColor: Color,
     pointsText: String,
@@ -85,8 +88,11 @@ fun CardItem(
             )
 
 
-            Icon(
-                imageVector = logo,
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(logo)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = null,
                 modifier = Modifier
                     .constrainAs(logoRef) {
@@ -97,7 +103,7 @@ fun CardItem(
             )
 
             val dividerRef = createRef()
-            Divider(
+            HorizontalDivider(
                 color = Color.LightGray,
                 thickness = 1.dp,
                 modifier = Modifier
@@ -224,7 +230,7 @@ fun CardItem(
             )
 
             val dividerSecondRef = createRef()
-            Divider(
+            HorizontalDivider(
                 color = Color.LightGray,
                 thickness = 1.dp,
                 modifier = Modifier
@@ -287,7 +293,7 @@ fun CardItem(
 fun CardItemPreview() {
     CardItem(
         cardName = "Bonus Money",
-        logo = ImageVector.vectorResource(id = R.drawable.ic_launcher_background),
+        logo = "http://bonusmoney.info/image/mail/logo3.png",
         points = 200,
         pointsText = "баллов",
         cashback = "5%",

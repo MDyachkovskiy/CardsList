@@ -47,15 +47,27 @@ dependencies {
     //Core
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
     //Pagination
-    implementation ("androidx.paging:paging-runtime:3.2.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-compose:3.2.1")
+
+    //Design
+    implementation("io.coil-kt:coil-compose:2.2.2")
 
     //Composable
-    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui:1.6.1")
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.compose.material:material:1.6.1")
+    implementation("androidx.compose.material3:material3-android:1.2.0")
+    implementation("androidx.compose.foundation:foundation:1.6.1")
+    implementation("androidx.compose.ui:ui-tooling:1.6.1")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
+
+
 }
