@@ -7,13 +7,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
@@ -21,18 +30,55 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.test.application.cards_list.ui.element.CardItem
 import com.test.application.cards_list.utils.toColor
 import com.test.application.cards_list.view_model.CardsViewModel
+import com.test.application.ui.DynamicSize
+import com.test.application.ui.White
 import com.test.application.utils.DataState
 import org.koin.androidx.compose.getViewModel
 
-@ExperimentalPagingApi
+@ExperimentalMaterial3Api
 @Composable
 fun CardsScreen(
     viewModel: CardsViewModel = getViewModel()
 ) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val density = LocalDensity.current.density
 
+    MaterialTheme{
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                CenterAlignedTopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = White
+                    ),
+                    title = {
+                        Text(
+                            stringResource(id = com.test.application.core.R.string.cards_list_title),
+                            style = MaterialTheme.typography.displayLarge,
+                            maxLines = 1,
+                            modifier = Modifier.padding(
+                                top = DynamicSize.getMarginRed(density),
+                                bottom = DynamicSize.getMarginRed(density))
+                        )
+                    },
+                    scrollBehavior = scrollBehavior
+                )
+            }
+        ) { innerPadding ->
+            CardsListContent(viewModel, Modifier.padding(innerPadding))
+        }
+    }
+}
+
+@OptIn(ExperimentalPagingApi::class)
+@ExperimentalMaterial3Api
+@Composable
+fun CardsListContent(
+    viewModel: CardsViewModel, modifier: Modifier = Modifier
+) {
     val companies = viewModel.cardsFlow.collectAsLazyPagingItems()
     val dataState by viewModel.dataState.collectAsState()
-    
+
     Box(modifier = Modifier.fillMaxSize()){
         when(dataState) {
             is DataState.Loading -> {
@@ -93,7 +139,9 @@ fun CardsScreen(
                     modifier = Modifier.align(Alignment.Center))
             }
             companies.loadState.append is LoadState.Loading -> {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp))
+                CircularProgressIndicator(modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp))
             }
             companies.loadState.refresh is LoadState.NotLoading && companies.itemCount == 0 -> {
                 Text("Карты не найдены", modifier = Modifier.align(Alignment.Center))

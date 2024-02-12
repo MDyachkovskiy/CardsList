@@ -8,7 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.test.application.cardslist.ui.screen.MyApp
+import com.test.application.cardslist.ui.MyApp
 import com.test.application.ui.CardsListTheme
 
 @ExperimentalMaterial3Api

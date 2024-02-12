@@ -14,11 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -27,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.test.application.cards_list.R
 import com.test.application.ui.Black
 import com.test.application.ui.Blue
 import com.test.application.ui.DynamicSize
@@ -257,7 +255,7 @@ fun CardItem(
 
             val icTrash = createRef()
             Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_trash),
+                painter = painterResource(id = com.test.application.core.R.drawable.ic_trash),
                 contentDescription = null,
                 tint = accentColor,
                 modifier = Modifier
@@ -271,7 +269,7 @@ fun CardItem(
 
             val icEye = createRef()
             Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_eye),
+                painter = painterResource(id = com.test.application.core.R.drawable.ic_eye),
                 contentDescription = null,
                 tint = mainColor,
                 modifier = Modifier
@@ -282,8 +280,6 @@ fun CardItem(
                     }
                     .size(DynamicSize.getIconSize(density))
             )
-
-
         }
     }
 }
