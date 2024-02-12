@@ -84,6 +84,7 @@ dependencies {
     //Preview
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.1")
+    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
 
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")

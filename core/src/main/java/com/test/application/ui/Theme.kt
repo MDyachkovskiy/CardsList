@@ -14,12 +14,12 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.test.application.core.R
 
@@ -32,6 +32,11 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
+fun isPreviewMode(): Boolean {
+    return LocalInspectionMode.current
+}
+
+@Composable
 fun CardsListTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
@@ -40,6 +45,7 @@ fun CardsListTheme(
     val density = LocalDensity.current.density
 
     val colorScheme = when {
+        isPreviewMode() -> if (darkTheme) DarkColorScheme else LightColorScheme
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
@@ -59,7 +65,8 @@ fun CardsListTheme(
         bodyLarge = TextStyle(
             fontFamily = FontFamily(Font(R.font.segoe)),
             fontWeight = FontWeight.Normal,
-            fontSize = 16.sp
+            fontSize = DynamicTextSize.getTextSizeThree(density),
+            color = Text_Blue
         )
     )
 
@@ -73,7 +80,6 @@ fun CardsListTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
         typography = customTypography,
         content = content
     )
