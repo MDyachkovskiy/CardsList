@@ -31,18 +31,18 @@ class CompanyPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Company> {
-        val position = params.key ?: INITIAL_OFFSET
-        Log.d("@@@", "PagingSource load: position=$position, loadSize=${params.loadSize}")
+        val position = (params.key ?: INITIAL_OFFSET) * params.loadSize
+
+        val loadSize = params.loadSize
+        val offset = position * loadSize
+        Log.d("@@@", "PagingSource load: position=$offset, loadSize=$loadSize")
 
         return try {
             Log.d("@@@", "Attempting to load companies from DB")
-            val companies = companyDao.getCompanies(position, params.loadSize)
+            val companies = companyDao.getCompanies(offset, loadSize)
             Log.d("@@@", "Successfully loaded ${companies.size} companies from the database.")
-            val nextKey = if (companies.isEmpty()) {
-                null
-            } else {
-                position + params.loadSize
-            }
+            val prevKey = if (position == 0) null else position - 1
+            val nextKey = if (companies.isEmpty()) null else position + 1
 
             val companiesWithDetails = companies.map {companyEntity ->
                 Log.d("@@@", "Processing companyEntity: ${companyEntity.companyId}")
@@ -76,7 +76,7 @@ class CompanyPagingSource(
 
             LoadResult.Page(
                 data = domainCompanies,
-                prevKey = if (position == 0) null else position - params.loadSize,
+                prevKey = prevKey,
                 nextKey = nextKey
             )
         } catch (exception: Exception) {
