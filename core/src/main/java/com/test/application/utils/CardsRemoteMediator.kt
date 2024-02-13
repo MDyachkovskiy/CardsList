@@ -40,7 +40,7 @@ class CardsRemoteMediator(
             LoadType.APPEND -> {
                 Log.d("@@@", "Appending data after lastItemIndex: $currentOffset")
                 val lastItemIndex = state.lastItemOrNull()?.let { currentOffset + pageSize }
-                    ?: return MediatorResult.Success(endOfPaginationReached = true) // Если нет элементов, значит достигнут конец
+                    ?: return MediatorResult.Success(endOfPaginationReached = true)
                 lastItemIndex
             }
         }
