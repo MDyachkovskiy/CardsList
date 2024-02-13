@@ -50,7 +50,11 @@ fun CardsScreen(
                 )
             }
         ) { innerPadding ->
-            CardsListContent(viewModel, Modifier.padding(innerPadding))
+            CardsListContent(
+                viewModel,
+                Modifier
+                    .padding(innerPadding)
+            )
         }
     }
 }

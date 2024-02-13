@@ -6,7 +6,9 @@ import com.test.application.cardslist.utils.BASE_URL
 import com.test.application.local_data.database.LocalDatabase
 import com.test.application.local_data.repository.LocalDataRepositoryImpl
 import com.test.application.remote_data.api.CardsApi
-import com.test.application.remote_data.repository.CardsRepositoryImpl
+import com.test.application.remote_data.repository.RemoteDataRepositoryImpl
+import com.test.application.repository.CardsListRepository
+import com.test.application.repository.CardsListRepositoryImpl
 import com.test.application.repository.LocalDataRepository
 import com.test.application.repository.RemoteDataRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -41,10 +43,12 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    single<RemoteDataRepository> { CardsRepositoryImpl(cardsService = get()) }
+    single<RemoteDataRepository> { RemoteDataRepositoryImpl(cardsService = get()) }
     single<LocalDataRepository> { LocalDataRepositoryImpl(companyDao = get()) }
+    single<CardsListRepository> { CardsListRepositoryImpl(remoteDataRepository = get(),
+        localDataRepository = get()) }
 }
 
 val viewModelModule = module {
-    viewModel { CardsViewModel(localDataRepository = get(), remoteDataRepository = get()) }
+    viewModel { CardsViewModel(cardsListRepository = get()) }
 }

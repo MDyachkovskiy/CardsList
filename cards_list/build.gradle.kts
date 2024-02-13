@@ -56,6 +56,7 @@ dependencies {
 
     //Design
     implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.34.0")
 
     //Koin
     implementation("io.insert-koin:koin-androidx-compose:3.5.0")
@@ -75,10 +76,4 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.1")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.1")
     implementation(platform("androidx.compose:compose-bom:2024.02.00"))
-
-
-
-
-
-
 }

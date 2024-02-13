@@ -9,14 +9,12 @@ import com.test.application.domain.Company
 import com.test.application.repository.LocalDataRepository
 import com.test.application.repository.RemoteDataRepository
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
 class CardsRemoteMediator(
     private val remoteData: RemoteDataRepository,
-    private val localData: LocalDataRepository,
-    private val dataStateFlow: MutableStateFlow<DataState>
+    private val localData: LocalDataRepository
 ) : RemoteMediator<Int, Company>() {
 
     private var currentOffset = 0
@@ -72,18 +70,15 @@ class CardsRemoteMediator(
                     }
 
                     currentOffset += allCards.companies.size
-                    dataStateFlow.emit(DataState.Success)
                     Log.d("@@@", "Successfully inserted data into database. EndOfPaginationReached: ${allCards.companies.size < pageSize}")
                     MediatorResult.Success(endOfPaginationReached = allCards.companies.size < pageSize)
                 },
                 onFailure = { exception ->
                     Log.e("@@@", "Fetch failed: ${exception.message}", exception)
-                    dataStateFlow.emit(DataState.Error(exception))
                     MediatorResult.Error(exception)
                 }
             )
         } catch (exception: Exception) {
-            dataStateFlow.emit(DataState.Error(exception))
             Log.e("@@@", "Error in RemoteMediator", exception)
             MediatorResult.Error(exception)
         }

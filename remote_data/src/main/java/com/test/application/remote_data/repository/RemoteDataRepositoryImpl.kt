@@ -6,7 +6,7 @@ import com.test.application.remote_data.api.CardsApi
 import com.test.application.remote_data.maper.toDomain
 import com.test.application.repository.RemoteDataRepository
 
-class CardsRepositoryImpl(
+class RemoteDataRepositoryImpl(
     private val cardsService: CardsApi
 ) : RemoteDataRepository {
 
