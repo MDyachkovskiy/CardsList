@@ -5,6 +5,9 @@
     <string name="level_label">Уровень</string>
     <string name="btn_details">Подробнее</string>
 
+    //CardsList
+    <string name="start_loader">Подгрузка компаний</string>
+
     //Error
     <string name="failed_loading">Возникла ошибка при загрузке</string>
 

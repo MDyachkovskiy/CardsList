@@ -26,6 +26,10 @@ object DynamicSize {
     fun getIconSize(density: Float): Dp {
         return if (density < 2.0) 12.dp else 20.dp
     }
+
+    fun getPreloaderSize(density: Float): Dp {
+        return if (density < 2.0) 32.dp else 40.dp
+    }
 }
 
 object DynamicTextSize {

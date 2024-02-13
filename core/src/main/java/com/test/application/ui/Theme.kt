@@ -66,7 +66,7 @@ fun CardsListTheme(
             fontFamily = FontFamily(Font(R.font.segoe)),
             fontWeight = FontWeight.Normal,
             fontSize = DynamicTextSize.getTextSizeThree(density),
-            color = Text_Blue
+            color = Black
         )
     )
 

@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
@@ -29,15 +30,16 @@ import com.test.application.utils.DataState
 @ExperimentalMaterial3Api
 @Composable
 fun CardsListContent(
-    viewModel: CardsViewModel, modifier: Modifier = Modifier
+    viewModel: CardsViewModel
 ) {
     val companies = viewModel.cardsFlow.collectAsLazyPagingItems()
     val dataState by viewModel.dataState.collectAsState()
+    val density = LocalDensity.current.density
 
     Box(modifier = Modifier.fillMaxSize()){
         when(dataState) {
             is DataState.Loading -> {
-                StartPreloader()
+                StartPreloader(density)
             }
 
             is DataState.Success -> {
